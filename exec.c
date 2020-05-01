@@ -99,8 +99,8 @@ exec(char *path, char **argv) {
     curproc->tf->eip = elf.entry;  // main
     curproc->tf->esp = sp;
     for (int i = 0; i < 32; i++) {
-        if (np->signal_handles[i] != SIG_IGN){
-            np->signal_handles[i] = SIG_DFL;
+        if ((int)curproc->signal_handlers[i] != SIG_IGN){
+            curproc->signal_handlers[i] = SIG_DFL;
         }
     }
     switchuvm(curproc);

@@ -98,7 +98,7 @@ allocproc(void) {
     p->state = EMBRYO;
     release(&ptable.lock);
     for (int i = 0; i < 32; ++i) {
-        p->signal_handles[i] = SIG_DFL;
+        p->signal_handlers[i] = SIG_DFL;
     }
     p->pending_signals = 0;
     p->signal_mask = 0;
@@ -227,8 +227,8 @@ fork(void) {
 
     np->signal_mask = curproc->signal_mask;
 
-    for (int i = 0; i < 32; i++){
-        np->signal_handles[i] = curproc->signal_handles[i];
+    for (int i = 0; i < 32; i++) {
+        np->signal_handlers[i] = curproc->signal_handlers[i];
     }
 
 
@@ -540,4 +540,32 @@ procdump(void) {
         }
         cprintf("\n");
     }
+}
+
+uint
+sigprocmask(uint sigmask) {
+    acquire(&ptable.lock);
+    uint old_mask = myproc()->signal_mask;
+    myproc()->signal_mask = sigmask;
+    release(&ptable.lock);
+    return old_mask;
+}
+
+int
+sigaction(int signum, const struct sigaction *act, struct sigaction *oldact) {
+
+    if (signum == SIGKILL || signum == SIGSTOP){
+        return -1;
+    }
+
+    acquire(&ptable.lock);
+    if (oldact != null){
+        *oldact = *(struct sigaction*)(myproc()->signal_handlers[signum]);
+    }
+
+    myproc()->signal_handlers[signum] = (void*)act;
+
+    release(&ptable.lock);
+
+    return 0;
 }

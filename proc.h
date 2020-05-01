@@ -53,7 +53,7 @@ struct proc {
     char name[16];               // Process name (debugging)
     uint pending_signals;
     uint signal_mask;
-    void* signal_handles[32];
+    void* signal_handlers[32];
     struct trapframe *backup;
 };
 

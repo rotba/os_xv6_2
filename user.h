@@ -2,6 +2,7 @@ struct stat;
 struct rtcdate;
 
 // system calls
+void sigret(void);
 int fork(void);
 int exit(void) __attribute__((noreturn));
 int wait(void);
@@ -23,6 +24,9 @@ int getpid(void);
 char* sbrk(int);
 int sleep(int);
 int uptime(void);
+uint sigprocmask(uint);
+int sigaction(int, const struct sigaction *, const struct sigaction *);
+
 
 // ulib.c
 int stat(const char*, struct stat*);
