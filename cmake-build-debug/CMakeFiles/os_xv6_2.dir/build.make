@@ -330,9 +330,22 @@ CMakeFiles/os_xv6_2.dir/main.c.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling C source to assembly CMakeFiles/os_xv6_2.dir/main.c.s"
 	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S /home/rotemb271/Code/School/semester_8/OS/os_xv6_2/main.c -o CMakeFiles/os_xv6_2.dir/main.c.s
 
+CMakeFiles/os_xv6_2.dir/mask_test.c.o: CMakeFiles/os_xv6_2.dir/flags.make
+CMakeFiles/os_xv6_2.dir/mask_test.c.o: ../mask_test.c
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rotemb271/Code/School/semester_8/OS/os_xv6_2/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_22) "Building C object CMakeFiles/os_xv6_2.dir/mask_test.c.o"
+	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/os_xv6_2.dir/mask_test.c.o   -c /home/rotemb271/Code/School/semester_8/OS/os_xv6_2/mask_test.c
+
+CMakeFiles/os_xv6_2.dir/mask_test.c.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing C source to CMakeFiles/os_xv6_2.dir/mask_test.c.i"
+	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E /home/rotemb271/Code/School/semester_8/OS/os_xv6_2/mask_test.c > CMakeFiles/os_xv6_2.dir/mask_test.c.i
+
+CMakeFiles/os_xv6_2.dir/mask_test.c.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling C source to assembly CMakeFiles/os_xv6_2.dir/mask_test.c.s"
+	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S /home/rotemb271/Code/School/semester_8/OS/os_xv6_2/mask_test.c -o CMakeFiles/os_xv6_2.dir/mask_test.c.s
+
 CMakeFiles/os_xv6_2.dir/memide.c.o: CMakeFiles/os_xv6_2.dir/flags.make
 CMakeFiles/os_xv6_2.dir/memide.c.o: ../memide.c
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rotemb271/Code/School/semester_8/OS/os_xv6_2/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_22) "Building C object CMakeFiles/os_xv6_2.dir/memide.c.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rotemb271/Code/School/semester_8/OS/os_xv6_2/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_23) "Building C object CMakeFiles/os_xv6_2.dir/memide.c.o"
 	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/os_xv6_2.dir/memide.c.o   -c /home/rotemb271/Code/School/semester_8/OS/os_xv6_2/memide.c
 
 CMakeFiles/os_xv6_2.dir/memide.c.i: cmake_force
@@ -345,7 +358,7 @@ CMakeFiles/os_xv6_2.dir/memide.c.s: cmake_force
 
 CMakeFiles/os_xv6_2.dir/mkdir.c.o: CMakeFiles/os_xv6_2.dir/flags.make
 CMakeFiles/os_xv6_2.dir/mkdir.c.o: ../mkdir.c
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rotemb271/Code/School/semester_8/OS/os_xv6_2/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_23) "Building C object CMakeFiles/os_xv6_2.dir/mkdir.c.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rotemb271/Code/School/semester_8/OS/os_xv6_2/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_24) "Building C object CMakeFiles/os_xv6_2.dir/mkdir.c.o"
 	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/os_xv6_2.dir/mkdir.c.o   -c /home/rotemb271/Code/School/semester_8/OS/os_xv6_2/mkdir.c
 
 CMakeFiles/os_xv6_2.dir/mkdir.c.i: cmake_force
@@ -358,7 +371,7 @@ CMakeFiles/os_xv6_2.dir/mkdir.c.s: cmake_force
 
 CMakeFiles/os_xv6_2.dir/mkfs.c.o: CMakeFiles/os_xv6_2.dir/flags.make
 CMakeFiles/os_xv6_2.dir/mkfs.c.o: ../mkfs.c
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rotemb271/Code/School/semester_8/OS/os_xv6_2/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_24) "Building C object CMakeFiles/os_xv6_2.dir/mkfs.c.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rotemb271/Code/School/semester_8/OS/os_xv6_2/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_25) "Building C object CMakeFiles/os_xv6_2.dir/mkfs.c.o"
 	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/os_xv6_2.dir/mkfs.c.o   -c /home/rotemb271/Code/School/semester_8/OS/os_xv6_2/mkfs.c
 
 CMakeFiles/os_xv6_2.dir/mkfs.c.i: cmake_force
@@ -371,7 +384,7 @@ CMakeFiles/os_xv6_2.dir/mkfs.c.s: cmake_force
 
 CMakeFiles/os_xv6_2.dir/mp.c.o: CMakeFiles/os_xv6_2.dir/flags.make
 CMakeFiles/os_xv6_2.dir/mp.c.o: ../mp.c
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rotemb271/Code/School/semester_8/OS/os_xv6_2/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_25) "Building C object CMakeFiles/os_xv6_2.dir/mp.c.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rotemb271/Code/School/semester_8/OS/os_xv6_2/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_26) "Building C object CMakeFiles/os_xv6_2.dir/mp.c.o"
 	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/os_xv6_2.dir/mp.c.o   -c /home/rotemb271/Code/School/semester_8/OS/os_xv6_2/mp.c
 
 CMakeFiles/os_xv6_2.dir/mp.c.i: cmake_force
@@ -384,7 +397,7 @@ CMakeFiles/os_xv6_2.dir/mp.c.s: cmake_force
 
 CMakeFiles/os_xv6_2.dir/picirq.c.o: CMakeFiles/os_xv6_2.dir/flags.make
 CMakeFiles/os_xv6_2.dir/picirq.c.o: ../picirq.c
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rotemb271/Code/School/semester_8/OS/os_xv6_2/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_26) "Building C object CMakeFiles/os_xv6_2.dir/picirq.c.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rotemb271/Code/School/semester_8/OS/os_xv6_2/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_27) "Building C object CMakeFiles/os_xv6_2.dir/picirq.c.o"
 	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/os_xv6_2.dir/picirq.c.o   -c /home/rotemb271/Code/School/semester_8/OS/os_xv6_2/picirq.c
 
 CMakeFiles/os_xv6_2.dir/picirq.c.i: cmake_force
@@ -397,7 +410,7 @@ CMakeFiles/os_xv6_2.dir/picirq.c.s: cmake_force
 
 CMakeFiles/os_xv6_2.dir/pipe.c.o: CMakeFiles/os_xv6_2.dir/flags.make
 CMakeFiles/os_xv6_2.dir/pipe.c.o: ../pipe.c
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rotemb271/Code/School/semester_8/OS/os_xv6_2/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_27) "Building C object CMakeFiles/os_xv6_2.dir/pipe.c.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rotemb271/Code/School/semester_8/OS/os_xv6_2/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_28) "Building C object CMakeFiles/os_xv6_2.dir/pipe.c.o"
 	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/os_xv6_2.dir/pipe.c.o   -c /home/rotemb271/Code/School/semester_8/OS/os_xv6_2/pipe.c
 
 CMakeFiles/os_xv6_2.dir/pipe.c.i: cmake_force
@@ -410,7 +423,7 @@ CMakeFiles/os_xv6_2.dir/pipe.c.s: cmake_force
 
 CMakeFiles/os_xv6_2.dir/printf.c.o: CMakeFiles/os_xv6_2.dir/flags.make
 CMakeFiles/os_xv6_2.dir/printf.c.o: ../printf.c
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rotemb271/Code/School/semester_8/OS/os_xv6_2/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_28) "Building C object CMakeFiles/os_xv6_2.dir/printf.c.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rotemb271/Code/School/semester_8/OS/os_xv6_2/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_29) "Building C object CMakeFiles/os_xv6_2.dir/printf.c.o"
 	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/os_xv6_2.dir/printf.c.o   -c /home/rotemb271/Code/School/semester_8/OS/os_xv6_2/printf.c
 
 CMakeFiles/os_xv6_2.dir/printf.c.i: cmake_force
@@ -423,7 +436,7 @@ CMakeFiles/os_xv6_2.dir/printf.c.s: cmake_force
 
 CMakeFiles/os_xv6_2.dir/proc.c.o: CMakeFiles/os_xv6_2.dir/flags.make
 CMakeFiles/os_xv6_2.dir/proc.c.o: ../proc.c
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rotemb271/Code/School/semester_8/OS/os_xv6_2/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_29) "Building C object CMakeFiles/os_xv6_2.dir/proc.c.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rotemb271/Code/School/semester_8/OS/os_xv6_2/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_30) "Building C object CMakeFiles/os_xv6_2.dir/proc.c.o"
 	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/os_xv6_2.dir/proc.c.o   -c /home/rotemb271/Code/School/semester_8/OS/os_xv6_2/proc.c
 
 CMakeFiles/os_xv6_2.dir/proc.c.i: cmake_force
@@ -436,7 +449,7 @@ CMakeFiles/os_xv6_2.dir/proc.c.s: cmake_force
 
 CMakeFiles/os_xv6_2.dir/rm.c.o: CMakeFiles/os_xv6_2.dir/flags.make
 CMakeFiles/os_xv6_2.dir/rm.c.o: ../rm.c
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rotemb271/Code/School/semester_8/OS/os_xv6_2/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_30) "Building C object CMakeFiles/os_xv6_2.dir/rm.c.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rotemb271/Code/School/semester_8/OS/os_xv6_2/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_31) "Building C object CMakeFiles/os_xv6_2.dir/rm.c.o"
 	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/os_xv6_2.dir/rm.c.o   -c /home/rotemb271/Code/School/semester_8/OS/os_xv6_2/rm.c
 
 CMakeFiles/os_xv6_2.dir/rm.c.i: cmake_force
@@ -449,7 +462,7 @@ CMakeFiles/os_xv6_2.dir/rm.c.s: cmake_force
 
 CMakeFiles/os_xv6_2.dir/sh.c.o: CMakeFiles/os_xv6_2.dir/flags.make
 CMakeFiles/os_xv6_2.dir/sh.c.o: ../sh.c
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rotemb271/Code/School/semester_8/OS/os_xv6_2/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_31) "Building C object CMakeFiles/os_xv6_2.dir/sh.c.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rotemb271/Code/School/semester_8/OS/os_xv6_2/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_32) "Building C object CMakeFiles/os_xv6_2.dir/sh.c.o"
 	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/os_xv6_2.dir/sh.c.o   -c /home/rotemb271/Code/School/semester_8/OS/os_xv6_2/sh.c
 
 CMakeFiles/os_xv6_2.dir/sh.c.i: cmake_force
@@ -462,7 +475,7 @@ CMakeFiles/os_xv6_2.dir/sh.c.s: cmake_force
 
 CMakeFiles/os_xv6_2.dir/sleeplock.c.o: CMakeFiles/os_xv6_2.dir/flags.make
 CMakeFiles/os_xv6_2.dir/sleeplock.c.o: ../sleeplock.c
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rotemb271/Code/School/semester_8/OS/os_xv6_2/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_32) "Building C object CMakeFiles/os_xv6_2.dir/sleeplock.c.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rotemb271/Code/School/semester_8/OS/os_xv6_2/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_33) "Building C object CMakeFiles/os_xv6_2.dir/sleeplock.c.o"
 	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/os_xv6_2.dir/sleeplock.c.o   -c /home/rotemb271/Code/School/semester_8/OS/os_xv6_2/sleeplock.c
 
 CMakeFiles/os_xv6_2.dir/sleeplock.c.i: cmake_force
@@ -475,7 +488,7 @@ CMakeFiles/os_xv6_2.dir/sleeplock.c.s: cmake_force
 
 CMakeFiles/os_xv6_2.dir/spinlock.c.o: CMakeFiles/os_xv6_2.dir/flags.make
 CMakeFiles/os_xv6_2.dir/spinlock.c.o: ../spinlock.c
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rotemb271/Code/School/semester_8/OS/os_xv6_2/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_33) "Building C object CMakeFiles/os_xv6_2.dir/spinlock.c.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rotemb271/Code/School/semester_8/OS/os_xv6_2/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_34) "Building C object CMakeFiles/os_xv6_2.dir/spinlock.c.o"
 	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/os_xv6_2.dir/spinlock.c.o   -c /home/rotemb271/Code/School/semester_8/OS/os_xv6_2/spinlock.c
 
 CMakeFiles/os_xv6_2.dir/spinlock.c.i: cmake_force
@@ -488,7 +501,7 @@ CMakeFiles/os_xv6_2.dir/spinlock.c.s: cmake_force
 
 CMakeFiles/os_xv6_2.dir/stressfs.c.o: CMakeFiles/os_xv6_2.dir/flags.make
 CMakeFiles/os_xv6_2.dir/stressfs.c.o: ../stressfs.c
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rotemb271/Code/School/semester_8/OS/os_xv6_2/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_34) "Building C object CMakeFiles/os_xv6_2.dir/stressfs.c.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rotemb271/Code/School/semester_8/OS/os_xv6_2/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_35) "Building C object CMakeFiles/os_xv6_2.dir/stressfs.c.o"
 	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/os_xv6_2.dir/stressfs.c.o   -c /home/rotemb271/Code/School/semester_8/OS/os_xv6_2/stressfs.c
 
 CMakeFiles/os_xv6_2.dir/stressfs.c.i: cmake_force
@@ -501,7 +514,7 @@ CMakeFiles/os_xv6_2.dir/stressfs.c.s: cmake_force
 
 CMakeFiles/os_xv6_2.dir/string.c.o: CMakeFiles/os_xv6_2.dir/flags.make
 CMakeFiles/os_xv6_2.dir/string.c.o: ../string.c
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rotemb271/Code/School/semester_8/OS/os_xv6_2/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_35) "Building C object CMakeFiles/os_xv6_2.dir/string.c.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rotemb271/Code/School/semester_8/OS/os_xv6_2/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_36) "Building C object CMakeFiles/os_xv6_2.dir/string.c.o"
 	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/os_xv6_2.dir/string.c.o   -c /home/rotemb271/Code/School/semester_8/OS/os_xv6_2/string.c
 
 CMakeFiles/os_xv6_2.dir/string.c.i: cmake_force
@@ -514,7 +527,7 @@ CMakeFiles/os_xv6_2.dir/string.c.s: cmake_force
 
 CMakeFiles/os_xv6_2.dir/syscall.c.o: CMakeFiles/os_xv6_2.dir/flags.make
 CMakeFiles/os_xv6_2.dir/syscall.c.o: ../syscall.c
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rotemb271/Code/School/semester_8/OS/os_xv6_2/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_36) "Building C object CMakeFiles/os_xv6_2.dir/syscall.c.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rotemb271/Code/School/semester_8/OS/os_xv6_2/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_37) "Building C object CMakeFiles/os_xv6_2.dir/syscall.c.o"
 	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/os_xv6_2.dir/syscall.c.o   -c /home/rotemb271/Code/School/semester_8/OS/os_xv6_2/syscall.c
 
 CMakeFiles/os_xv6_2.dir/syscall.c.i: cmake_force
@@ -527,7 +540,7 @@ CMakeFiles/os_xv6_2.dir/syscall.c.s: cmake_force
 
 CMakeFiles/os_xv6_2.dir/sysfile.c.o: CMakeFiles/os_xv6_2.dir/flags.make
 CMakeFiles/os_xv6_2.dir/sysfile.c.o: ../sysfile.c
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rotemb271/Code/School/semester_8/OS/os_xv6_2/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_37) "Building C object CMakeFiles/os_xv6_2.dir/sysfile.c.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rotemb271/Code/School/semester_8/OS/os_xv6_2/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_38) "Building C object CMakeFiles/os_xv6_2.dir/sysfile.c.o"
 	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/os_xv6_2.dir/sysfile.c.o   -c /home/rotemb271/Code/School/semester_8/OS/os_xv6_2/sysfile.c
 
 CMakeFiles/os_xv6_2.dir/sysfile.c.i: cmake_force
@@ -540,7 +553,7 @@ CMakeFiles/os_xv6_2.dir/sysfile.c.s: cmake_force
 
 CMakeFiles/os_xv6_2.dir/sysproc.c.o: CMakeFiles/os_xv6_2.dir/flags.make
 CMakeFiles/os_xv6_2.dir/sysproc.c.o: ../sysproc.c
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rotemb271/Code/School/semester_8/OS/os_xv6_2/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_38) "Building C object CMakeFiles/os_xv6_2.dir/sysproc.c.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rotemb271/Code/School/semester_8/OS/os_xv6_2/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_39) "Building C object CMakeFiles/os_xv6_2.dir/sysproc.c.o"
 	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/os_xv6_2.dir/sysproc.c.o   -c /home/rotemb271/Code/School/semester_8/OS/os_xv6_2/sysproc.c
 
 CMakeFiles/os_xv6_2.dir/sysproc.c.i: cmake_force
@@ -553,7 +566,7 @@ CMakeFiles/os_xv6_2.dir/sysproc.c.s: cmake_force
 
 CMakeFiles/os_xv6_2.dir/trap.c.o: CMakeFiles/os_xv6_2.dir/flags.make
 CMakeFiles/os_xv6_2.dir/trap.c.o: ../trap.c
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rotemb271/Code/School/semester_8/OS/os_xv6_2/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_39) "Building C object CMakeFiles/os_xv6_2.dir/trap.c.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rotemb271/Code/School/semester_8/OS/os_xv6_2/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_40) "Building C object CMakeFiles/os_xv6_2.dir/trap.c.o"
 	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/os_xv6_2.dir/trap.c.o   -c /home/rotemb271/Code/School/semester_8/OS/os_xv6_2/trap.c
 
 CMakeFiles/os_xv6_2.dir/trap.c.i: cmake_force
@@ -566,7 +579,7 @@ CMakeFiles/os_xv6_2.dir/trap.c.s: cmake_force
 
 CMakeFiles/os_xv6_2.dir/uart.c.o: CMakeFiles/os_xv6_2.dir/flags.make
 CMakeFiles/os_xv6_2.dir/uart.c.o: ../uart.c
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rotemb271/Code/School/semester_8/OS/os_xv6_2/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_40) "Building C object CMakeFiles/os_xv6_2.dir/uart.c.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rotemb271/Code/School/semester_8/OS/os_xv6_2/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_41) "Building C object CMakeFiles/os_xv6_2.dir/uart.c.o"
 	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/os_xv6_2.dir/uart.c.o   -c /home/rotemb271/Code/School/semester_8/OS/os_xv6_2/uart.c
 
 CMakeFiles/os_xv6_2.dir/uart.c.i: cmake_force
@@ -579,7 +592,7 @@ CMakeFiles/os_xv6_2.dir/uart.c.s: cmake_force
 
 CMakeFiles/os_xv6_2.dir/ulib.c.o: CMakeFiles/os_xv6_2.dir/flags.make
 CMakeFiles/os_xv6_2.dir/ulib.c.o: ../ulib.c
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rotemb271/Code/School/semester_8/OS/os_xv6_2/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_41) "Building C object CMakeFiles/os_xv6_2.dir/ulib.c.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rotemb271/Code/School/semester_8/OS/os_xv6_2/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_42) "Building C object CMakeFiles/os_xv6_2.dir/ulib.c.o"
 	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/os_xv6_2.dir/ulib.c.o   -c /home/rotemb271/Code/School/semester_8/OS/os_xv6_2/ulib.c
 
 CMakeFiles/os_xv6_2.dir/ulib.c.i: cmake_force
@@ -592,7 +605,7 @@ CMakeFiles/os_xv6_2.dir/ulib.c.s: cmake_force
 
 CMakeFiles/os_xv6_2.dir/umalloc.c.o: CMakeFiles/os_xv6_2.dir/flags.make
 CMakeFiles/os_xv6_2.dir/umalloc.c.o: ../umalloc.c
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rotemb271/Code/School/semester_8/OS/os_xv6_2/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_42) "Building C object CMakeFiles/os_xv6_2.dir/umalloc.c.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rotemb271/Code/School/semester_8/OS/os_xv6_2/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_43) "Building C object CMakeFiles/os_xv6_2.dir/umalloc.c.o"
 	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/os_xv6_2.dir/umalloc.c.o   -c /home/rotemb271/Code/School/semester_8/OS/os_xv6_2/umalloc.c
 
 CMakeFiles/os_xv6_2.dir/umalloc.c.i: cmake_force
@@ -605,7 +618,7 @@ CMakeFiles/os_xv6_2.dir/umalloc.c.s: cmake_force
 
 CMakeFiles/os_xv6_2.dir/usertests.c.o: CMakeFiles/os_xv6_2.dir/flags.make
 CMakeFiles/os_xv6_2.dir/usertests.c.o: ../usertests.c
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rotemb271/Code/School/semester_8/OS/os_xv6_2/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_43) "Building C object CMakeFiles/os_xv6_2.dir/usertests.c.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rotemb271/Code/School/semester_8/OS/os_xv6_2/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_44) "Building C object CMakeFiles/os_xv6_2.dir/usertests.c.o"
 	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/os_xv6_2.dir/usertests.c.o   -c /home/rotemb271/Code/School/semester_8/OS/os_xv6_2/usertests.c
 
 CMakeFiles/os_xv6_2.dir/usertests.c.i: cmake_force
@@ -618,7 +631,7 @@ CMakeFiles/os_xv6_2.dir/usertests.c.s: cmake_force
 
 CMakeFiles/os_xv6_2.dir/vm.c.o: CMakeFiles/os_xv6_2.dir/flags.make
 CMakeFiles/os_xv6_2.dir/vm.c.o: ../vm.c
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rotemb271/Code/School/semester_8/OS/os_xv6_2/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_44) "Building C object CMakeFiles/os_xv6_2.dir/vm.c.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rotemb271/Code/School/semester_8/OS/os_xv6_2/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_45) "Building C object CMakeFiles/os_xv6_2.dir/vm.c.o"
 	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/os_xv6_2.dir/vm.c.o   -c /home/rotemb271/Code/School/semester_8/OS/os_xv6_2/vm.c
 
 CMakeFiles/os_xv6_2.dir/vm.c.i: cmake_force
@@ -631,7 +644,7 @@ CMakeFiles/os_xv6_2.dir/vm.c.s: cmake_force
 
 CMakeFiles/os_xv6_2.dir/wc.c.o: CMakeFiles/os_xv6_2.dir/flags.make
 CMakeFiles/os_xv6_2.dir/wc.c.o: ../wc.c
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rotemb271/Code/School/semester_8/OS/os_xv6_2/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_45) "Building C object CMakeFiles/os_xv6_2.dir/wc.c.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rotemb271/Code/School/semester_8/OS/os_xv6_2/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_46) "Building C object CMakeFiles/os_xv6_2.dir/wc.c.o"
 	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/os_xv6_2.dir/wc.c.o   -c /home/rotemb271/Code/School/semester_8/OS/os_xv6_2/wc.c
 
 CMakeFiles/os_xv6_2.dir/wc.c.i: cmake_force
@@ -644,7 +657,7 @@ CMakeFiles/os_xv6_2.dir/wc.c.s: cmake_force
 
 CMakeFiles/os_xv6_2.dir/zombie.c.o: CMakeFiles/os_xv6_2.dir/flags.make
 CMakeFiles/os_xv6_2.dir/zombie.c.o: ../zombie.c
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rotemb271/Code/School/semester_8/OS/os_xv6_2/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_46) "Building C object CMakeFiles/os_xv6_2.dir/zombie.c.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/rotemb271/Code/School/semester_8/OS/os_xv6_2/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_47) "Building C object CMakeFiles/os_xv6_2.dir/zombie.c.o"
 	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/os_xv6_2.dir/zombie.c.o   -c /home/rotemb271/Code/School/semester_8/OS/os_xv6_2/zombie.c
 
 CMakeFiles/os_xv6_2.dir/zombie.c.i: cmake_force
@@ -678,6 +691,7 @@ os_xv6_2_OBJECTS = \
 "CMakeFiles/os_xv6_2.dir/log.c.o" \
 "CMakeFiles/os_xv6_2.dir/ls.c.o" \
 "CMakeFiles/os_xv6_2.dir/main.c.o" \
+"CMakeFiles/os_xv6_2.dir/mask_test.c.o" \
 "CMakeFiles/os_xv6_2.dir/memide.c.o" \
 "CMakeFiles/os_xv6_2.dir/mkdir.c.o" \
 "CMakeFiles/os_xv6_2.dir/mkfs.c.o" \
@@ -728,6 +742,7 @@ os_xv6_2: CMakeFiles/os_xv6_2.dir/ln.c.o
 os_xv6_2: CMakeFiles/os_xv6_2.dir/log.c.o
 os_xv6_2: CMakeFiles/os_xv6_2.dir/ls.c.o
 os_xv6_2: CMakeFiles/os_xv6_2.dir/main.c.o
+os_xv6_2: CMakeFiles/os_xv6_2.dir/mask_test.c.o
 os_xv6_2: CMakeFiles/os_xv6_2.dir/memide.c.o
 os_xv6_2: CMakeFiles/os_xv6_2.dir/mkdir.c.o
 os_xv6_2: CMakeFiles/os_xv6_2.dir/mkfs.c.o
@@ -755,7 +770,7 @@ os_xv6_2: CMakeFiles/os_xv6_2.dir/wc.c.o
 os_xv6_2: CMakeFiles/os_xv6_2.dir/zombie.c.o
 os_xv6_2: CMakeFiles/os_xv6_2.dir/build.make
 os_xv6_2: CMakeFiles/os_xv6_2.dir/link.txt
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/home/rotemb271/Code/School/semester_8/OS/os_xv6_2/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_47) "Linking C executable os_xv6_2"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/home/rotemb271/Code/School/semester_8/OS/os_xv6_2/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_48) "Linking C executable os_xv6_2"
 	$(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/os_xv6_2.dir/link.txt --verbose=$(VERBOSE)
 
 # Rule to build all files generated by this target.

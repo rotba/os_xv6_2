@@ -488,16 +488,15 @@ wakeup(void *chan) {
 // Process won't exit until it returns
 // to user space (see trap in trap.c).
 int
-kill(int pid) {
+kill(int pid, int signum) {
+    if (signum > 32)
+        return -1;
+    int bit = 1 << signum;
     struct proc *p;
-
     acquire(&ptable.lock);
     for (p = ptable.proc; p < &ptable.proc[NPROC]; p++) {
         if (p->pid == pid) {
-            p->killed = 1;
-            // Wake process from sleep if necessary.
-            if (p->state == SLEEPING)
-                p->state = RUNNABLE;
+            p->pending_signals |= bit;
             release(&ptable.lock);
             return 0;
         }
@@ -554,16 +553,16 @@ sigprocmask(uint sigmask) {
 int
 sigaction(int signum, const struct sigaction *act, struct sigaction *oldact) {
 
-    if (signum == SIGKILL || signum == SIGSTOP){
+    if (signum == SIGKILL || signum == SIGSTOP) {
         return -1;
     }
 
     acquire(&ptable.lock);
-    if (oldact != null){
-        *oldact = *(struct sigaction*)(myproc()->signal_handlers[signum]);
+    if (oldact != null) {
+        *oldact = *(struct sigaction *) (myproc()->signal_handlers[signum]);
     }
 
-    myproc()->signal_handlers[signum] = (void*)act;
+    myproc()->signal_handlers[signum] = (void *) act;
 
     release(&ptable.lock);
 

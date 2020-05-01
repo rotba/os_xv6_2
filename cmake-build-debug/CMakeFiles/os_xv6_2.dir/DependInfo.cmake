@@ -25,6 +25,7 @@ set(CMAKE_DEPENDS_CHECK_C
   "/home/rotemb271/Code/School/semester_8/OS/os_xv6_2/log.c" "/home/rotemb271/Code/School/semester_8/OS/os_xv6_2/cmake-build-debug/CMakeFiles/os_xv6_2.dir/log.c.o"
   "/home/rotemb271/Code/School/semester_8/OS/os_xv6_2/ls.c" "/home/rotemb271/Code/School/semester_8/OS/os_xv6_2/cmake-build-debug/CMakeFiles/os_xv6_2.dir/ls.c.o"
   "/home/rotemb271/Code/School/semester_8/OS/os_xv6_2/main.c" "/home/rotemb271/Code/School/semester_8/OS/os_xv6_2/cmake-build-debug/CMakeFiles/os_xv6_2.dir/main.c.o"
+  "/home/rotemb271/Code/School/semester_8/OS/os_xv6_2/mask_test.c" "/home/rotemb271/Code/School/semester_8/OS/os_xv6_2/cmake-build-debug/CMakeFiles/os_xv6_2.dir/mask_test.c.o"
   "/home/rotemb271/Code/School/semester_8/OS/os_xv6_2/memide.c" "/home/rotemb271/Code/School/semester_8/OS/os_xv6_2/cmake-build-debug/CMakeFiles/os_xv6_2.dir/memide.c.o"
   "/home/rotemb271/Code/School/semester_8/OS/os_xv6_2/mkdir.c" "/home/rotemb271/Code/School/semester_8/OS/os_xv6_2/cmake-build-debug/CMakeFiles/os_xv6_2.dir/mkdir.c.o"
   "/home/rotemb271/Code/School/semester_8/OS/os_xv6_2/mkfs.c" "/home/rotemb271/Code/School/semester_8/OS/os_xv6_2/cmake-build-debug/CMakeFiles/os_xv6_2.dir/mkfs.c.o"

@@ -170,6 +170,9 @@
 		<Unit filename="/home/rotemb271/Code/School/semester_8/OS/os_xv6_2/main.c">
 			<Option target="os_xv6_2"/>
 		</Unit>
+		<Unit filename="/home/rotemb271/Code/School/semester_8/OS/os_xv6_2/mask_test.c">
+			<Option target="os_xv6_2"/>
+		</Unit>
 		<Unit filename="/home/rotemb271/Code/School/semester_8/OS/os_xv6_2/memide.c">
 			<Option target="os_xv6_2"/>
 		</Unit>

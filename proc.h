@@ -62,8 +62,3 @@ struct proc {
 //   original data and bss
 //   fixed-size stack
 //   expandable heap
-#define  SIG_DFL 0
-#define  SIG_IGN 1
-#define  SIGKILL 9
-#define SIGSTOP    17
-#define SIGCONT    19

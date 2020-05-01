@@ -36,6 +36,7 @@ add_executable(os_xv6_2
         log.c
         ls.c
         main.c
+        mask_test.c
         memide.c
         memlayout.h
         mkdir.c

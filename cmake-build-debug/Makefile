@@ -690,6 +690,33 @@ main.c.s:
 	$(MAKE) -f CMakeFiles/os_xv6_2.dir/build.make CMakeFiles/os_xv6_2.dir/main.c.s
 .PHONY : main.c.s
 
+mask_test.o: mask_test.c.o
+
+.PHONY : mask_test.o
+
+# target to build an object file
+mask_test.c.o:
+	$(MAKE) -f CMakeFiles/os_xv6_2.dir/build.make CMakeFiles/os_xv6_2.dir/mask_test.c.o
+.PHONY : mask_test.c.o
+
+mask_test.i: mask_test.c.i
+
+.PHONY : mask_test.i
+
+# target to preprocess a source file
+mask_test.c.i:
+	$(MAKE) -f CMakeFiles/os_xv6_2.dir/build.make CMakeFiles/os_xv6_2.dir/mask_test.c.i
+.PHONY : mask_test.c.i
+
+mask_test.s: mask_test.c.s
+
+.PHONY : mask_test.s
+
+# target to generate assembly for a file
+mask_test.c.s:
+	$(MAKE) -f CMakeFiles/os_xv6_2.dir/build.make CMakeFiles/os_xv6_2.dir/mask_test.c.s
+.PHONY : mask_test.c.s
+
 memide.o: memide.c.o
 
 .PHONY : memide.o
@@ -1437,6 +1464,9 @@ help:
 	@echo "... main.o"
 	@echo "... main.i"
 	@echo "... main.s"
+	@echo "... mask_test.o"
+	@echo "... mask_test.i"
+	@echo "... mask_test.s"
 	@echo "... memide.o"
 	@echo "... memide.i"
 	@echo "... memide.s"

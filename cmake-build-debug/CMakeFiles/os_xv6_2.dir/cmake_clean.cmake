@@ -20,6 +20,7 @@ file(REMOVE_RECURSE
   "CMakeFiles/os_xv6_2.dir/log.c.o"
   "CMakeFiles/os_xv6_2.dir/ls.c.o"
   "CMakeFiles/os_xv6_2.dir/main.c.o"
+  "CMakeFiles/os_xv6_2.dir/mask_test.c.o"
   "CMakeFiles/os_xv6_2.dir/memide.c.o"
   "CMakeFiles/os_xv6_2.dir/mkdir.c.o"
   "CMakeFiles/os_xv6_2.dir/mkfs.c.o"

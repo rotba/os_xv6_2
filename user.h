@@ -10,7 +10,7 @@ int pipe(int*);
 int write(int, const void*, int);
 int read(int, void*, int);
 int close(int);
-int kill(int);
+int kill(int,int);
 int exec(char*, char**);
 int open(const char*, int);
 int mknod(const char*, short, short);
@@ -41,3 +41,9 @@ void* memset(void*, int, uint);
 void* malloc(uint);
 void free(void*);
 int atoi(const char*);
+
+#define  SIG_DFL 0
+#define  SIG_IGN 1
+#define  SIGKILL 9
+#define SIGSTOP    17
+#define SIGCONT    19
