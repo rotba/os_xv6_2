@@ -1,0 +1,3 @@
+/home/rotemb271/Code/School/semester_8/OS/os_xv6_2/cmake-build-debug/CMakeFiles/rebuild_cache.dir
+/home/rotemb271/Code/School/semester_8/OS/os_xv6_2/cmake-build-debug/CMakeFiles/edit_cache.dir
+/home/rotemb271/Code/School/semester_8/OS/os_xv6_2/cmake-build-debug/CMakeFiles/os_xv6_2.dir
