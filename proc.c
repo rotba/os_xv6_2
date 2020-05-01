@@ -101,6 +101,10 @@ allocproc(void)
 found:
   p->state = EMBRYO;
   release(&ptable.lock);
+    for (int i = 0; i <32 ; ++i) {
+        p->signal_handles[i] = SIG_DFL;
+    }
+    p->pendin
 
   p->pid = allocpid();
 
