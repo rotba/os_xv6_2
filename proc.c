@@ -97,7 +97,8 @@ allocproc(void) {
     found:
     p->state = EMBRYO;
     release(&ptable.lock);
-    for (int i = 0; i < 32; ++i) {
+    for (int i = 0; i < 32; ++i){
+
         p->signal_handlers[i] = SIG_DFL;
     }
     p->pending_signals = 0;
