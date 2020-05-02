@@ -17,4 +17,5 @@ mkfs
 ./.idea/*
 /cmake-build-debug/*
 CMakeLists.txt
-
+/.idea/
+/cmake-build-debug/
