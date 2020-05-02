@@ -34,7 +34,7 @@ idtinit(void)
 
 //PAGEBREAK: 41
 void
-tgit rap(struct trapframe *tf)
+trap(struct trapframe *tf)
 {
   if(tf->trapno == T_SYSCALL){
     if(myproc()->killed)
