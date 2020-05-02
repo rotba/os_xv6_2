@@ -97,7 +97,7 @@ allocproc(void) {
     found:
     p->state = EMBRYO;
     release(&ptable.lock);
-    for (int i = 0; i < 32; ++i){
+    for (int i = 0; i < 32; ++i) {
 
         p->signal_handlers[i] = SIG_DFL;
     }
@@ -504,6 +504,41 @@ kill(int pid, int signum) {
     }
     release(&ptable.lock);
     return -1;
+}
+
+// Kill the process with the given pid.
+// Process won't exit until it returns
+// to user space (see trap in trap.c).
+int
+kill_handler(int pid) {
+    struct proc *p;
+    acquire(&ptable.lock);
+    for (p = ptable.proc; p < &ptable.proc[NPROC]; p++) {
+        if (p->pid == pid) {
+            p->killed = 1;
+            // Wake process from sleep if necessary.
+            if (p->state == SLEEPING)
+                p->state = RUNNABLE;
+            release(&ptable.lock);
+            return 0;
+        }
+    }
+    release(&ptable.lock);
+    return -1;
+}
+
+int stop_handler(int pid) {
+    int bit = 1 << SIGCONT;
+    int done = 0;
+    while (done == 0) {
+        acquire(&ptable.lock);
+        done = ((myproc()->pending_signals & bit) == 0);
+        release(&ptable.lock);
+        if (!done){
+            yield();
+        }
+    }
+    return 0;
 }
 
 //PAGEBREAK: 36
