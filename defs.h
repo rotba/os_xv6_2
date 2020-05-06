@@ -162,6 +162,10 @@ int growproc(int);
 
 int kill(int,int);
 
+void kill_handler();
+
+void stop_handler();
+
 struct cpu *mycpu(void);
 
 struct proc *myproc();
