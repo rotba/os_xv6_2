@@ -23,6 +23,7 @@ alltraps:
   # Return falls through to trapret...
 .globl trapret
 trapret:
+  call signalsHandler
   popal
   popl %gs
   popl %fs

@@ -39,22 +39,6 @@ trap(struct trapframe *tf) {
         syscall();
         if (myproc()->killed)
             exit();
-        int is_stopped = 1;
-        while (is_stopped) {
-            is_stopped = ((myproc()->pending_signals & 1<<SIGSTOP) == 0);
-            if (!is_stopped) {
-                yield();
-            }
-            if (myproc()->pending_signals & 1 << SIGKILL) {
-                kill_handler();
-                myproc()->pending_signals &= ~(1 << SIGKILL);
-                is_stopped=0;
-            }
-            if (myproc()->pending_signals & 1 << SIGCONT ) {
-                myproc()->pending_signals &= ~(1 << SIGCONT);
-                is_stopped=0;
-            }
-        }
 
         return;
     }
@@ -123,3 +107,5 @@ trap(struct trapframe *tf) {
     if (myproc() && myproc()->killed && (tf->cs & 3) == DPL_USER)
         exit();
 }
+
+

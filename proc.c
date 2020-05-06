@@ -351,7 +351,7 @@ scheduler(void) {
         // Loop over process table looking for process to run.
         acquire(&ptable.lock);
         for (p = ptable.proc; p < &ptable.proc[NPROC]; p++) {
-            if (p->state != RUNNABLE  )
+            if (p->state != RUNNABLE)
                 continue;
 
             // Switch to chosen process.  It is the process's job
@@ -594,4 +594,100 @@ sigaction(int signum, const struct sigaction *act, struct sigaction *oldact) {
     release(&ptable.lock);
 
     return 0;
+}
+
+int
+is_sigact(void *a) {
+    if (a == 0 || a == 1 || a == 9 || a == 17 || a == 19) {
+        return 0;
+    } else {
+        return 1;
+    }
+}
+
+
+void
+signalsHandler(void) {
+    int is_stopped = 1;
+    while (is_stopped) {
+
+        int is_killed = 0;
+        int is_cont = 0;
+        is_stopped = 0;
+
+        acquire(&ptable.lock);
+
+        for (int i = 0; i < 32; i++) {
+            if (myproc()->pending_signals & (1 << i) &&
+                (!(myproc()->signal_mask & (1 << i)) || i == SIGKILL || i == SIGSTOP || i == SIGCONT)) {
+                if (i == SIGKILL) {
+                    is_killed = 1;
+                    is_stopped = 0;
+                    break;
+                } else if ((myproc()->signal_handlers[i] == (void *) SIGKILL ||
+                            myproc()->signal_handlers[i] == (void *) SIG_DFL) && (i != SIGCONT && i != SIGSTOP)) {
+                    is_killed = 1;
+                    is_stopped = 0;
+                    break;
+                } else if (is_sigact(myproc()->signal_handlers[i]) &&
+                           (((struct sigaction *) (myproc()->signal_handlers[i]))->sa_handler == (void *) SIGKILL ||
+                            (((struct sigaction *) (myproc()->signal_handlers[i]))->sa_handler == (void *) SIG_DFL))) {
+                    is_killed = 1;
+                    is_stopped = 0;
+                    break;
+                }
+
+
+                if (i == SIGSTOP) {
+                    is_stopped = 1;
+                    myproc()->pending_signals &= ~(1 << i);
+                } else if (myproc()->signal_handlers[i] == (void *) SIGSTOP) {
+                    is_stopped = 1;
+                    myproc()->pending_signals &= ~(1 << i);
+                } else if (is_sigact(myproc()->signal_handlers[i]) &&
+                           (((struct sigaction *) (myproc()->signal_handlers[i]))->sa_handler == (void *) SIGSTOP)) {
+                    is_stopped = 1;
+                    myproc()->pending_signals &= ~(1 << i);
+                } else {
+                    is_stopped = 0;
+                }
+
+                if (i == SIGCONT) {
+                    is_cont = 1;
+                    myproc()->pending_signals &= ~(1 << i);
+                } else if (myproc()->signal_handlers[i] == (void *) SIGCONT) {
+                    is_cont = 1;
+                    myproc()->pending_signals &= ~(1 << i);
+                } else if (is_sigact(myproc()->signal_handlers[i]) &&
+                           (((struct sigaction *) (myproc()->signal_handlers[i]))->sa_handler == (void *) SIGCONT)) {
+                    is_cont = 1;
+                    myproc()->pending_signals &= ~(1 << i);
+                }
+
+            }
+        }
+
+        release(&ptable.lock);
+
+
+        if (is_killed) {
+            kill_handler();
+            myproc()->pending_signals &= ~(1 << SIGKILL);
+            is_stopped = 0;
+            return;
+        }
+
+        if (is_stopped) {
+            yield();
+        }
+
+        if (is_cont) {
+            myproc()->pending_signals &= ~(1 << SIGCONT);
+            is_stopped = 0;
+
+        }
+    }
+
+
+    return;
 }
