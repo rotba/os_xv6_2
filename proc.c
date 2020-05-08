@@ -20,6 +20,12 @@ extern void forkret(void);
 
 extern void trapret(void);
 
+extern void call_sigret(void);
+
+extern void call_sigret_end(void);
+
+extern void call_handler(void *, int);
+
 static void wakeup1(void *chan);
 
 void
@@ -127,6 +133,8 @@ allocproc(void) {
     p->context = (struct context *) sp;
     memset(p->context, 0, sizeof *p->context);
     p->context->eip = (uint) forkret;
+    sp -= sizeof *p->backup;
+    p->backup = (struct trapframe *) sp;
 
     return p;
 }
@@ -598,7 +606,7 @@ sigaction(int signum, const struct sigaction *act, struct sigaction *oldact) {
 
 int
 is_sigact(void *a) {
-    if (a == 0 || a == 1 || a == 9 || a == 17 || a == 19) {
+    if ((int) a == 0 || (int) a == 1 || (int) a == 9 || (int) a == 17 || (int) a == 19) {
         return 0;
     } else {
         return 1;
@@ -672,7 +680,6 @@ signalsHandler(void) {
 
         if (is_killed) {
             kill_handler();
-            myproc()->pending_signals &= ~(1 << SIGKILL);
             is_stopped = 0;
             return;
         }
@@ -682,12 +689,49 @@ signalsHandler(void) {
         }
 
         if (is_cont) {
-            myproc()->pending_signals &= ~(1 << SIGCONT);
             is_stopped = 0;
-
         }
     }
 
+    //backup trapfram
+    acquire(&ptable.lock);
+    for (int i = 0; i < 32; i++) {
+        int is_pending_and_not_ignored = (myproc()->pending_signals & 1 << i) != 0 &&
+                                         (myproc()->signal_mask & 1 << i) == 0;
+        int* func = myproc()->signal_handlers[i];
+        memmove(myproc()->backup, myproc()->tf, sizeof(struct trapframe));
+        myproc()->signal_mask_backup = myproc()->signal_mask;
+        if (is_sigact(myproc()->signal_handlers[i])) {
+            myproc()->signal_mask = ((struct sigaction *) myproc()->signal_handlers[i])->sigmask;
+        }
+        if (is_pending_and_not_ignored) {
+            int code_length = (int)call_sigret_end - (int)call_sigret;
+            myproc()->tf->esp -= code_length + (code_length %8);
+            int* call_sigret_add = (int*)myproc()->tf->esp;
+            memmove(
+                    (int*)myproc()->tf->esp,
+                    call_sigret,
+                    code_length
+            );
+            myproc()->tf->esp -= 4;
+            *((int *) myproc()->tf->esp) = i;
+            *((int **) myproc()->tf->esp - 4) =  call_sigret_add;
+            myproc()->tf->esp -= 8;
+            myproc()->tf->eip =  (uint)func;
+            release(&ptable.lock);
+            return;
+        }
+    }
+    //restore trapframe
+    release(&ptable.lock);
+    return;
+}
 
+void
+sigret_impl() {
+    acquire(&ptable.lock);
+    memmove(myproc()->tf, myproc()->backup, sizeof(struct trapframe));
+    myproc()->signal_mask = myproc()->signal_mask_backup;
+    release(&ptable.lock);
     return;
 }

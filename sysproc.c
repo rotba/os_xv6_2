@@ -32,7 +32,7 @@ sys_kill(void) {
         return -1;
     if (argint(1, &signum) < 0)
         return -1;
-    return kill(pid,signum);
+    return kill(pid, signum);
 }
 
 int
@@ -93,7 +93,7 @@ sys_sigprocmask(void) {
     if (argint(0, &sigmask) < 0)
         return -1;
 
-    return sigprocmask((uint)sigmask);
+    return sigprocmask((uint) sigmask);
 }
 
 
@@ -113,11 +113,11 @@ sys_sigaction(void) {
     if (argptr(2, &oldact, sizeof(struct sigaction)) < 0)
         return -1;
 
-    return sigaction(signum, (struct sigaction*) act, (struct sigaction*) oldact);
+    return sigaction(signum, (struct sigaction *) act, (struct sigaction *) oldact);
 }
 
 int
-sys_sigret(void)
-{
- return 0;
+sys_sigret(void) {
+    sigret_impl();
+    return 0;
 }

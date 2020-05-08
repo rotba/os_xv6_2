@@ -31,3 +31,13 @@ trapret:
   popl %ds
   addl $0x8, %esp  # trapno and errcode
   iret
+
+.globl call_sigret
+  call_sigret:
+    movl $24, %eax
+    int $64
+    ret
+.global call_sigret_end
+    call_sigret_end:
+
+
