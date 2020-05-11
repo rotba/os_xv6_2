@@ -22,10 +22,6 @@ hand3(int a) {
 void
 hand10(int a) {
     printf(0, "handle 10\n");
-    struct sigaction b = {hand2, 0};
-    sigaction(2, &b, null);
-    struct sigaction c = {hand3, 0};
-    sigaction(3, &c, null);
     while (1){}
     return;
 }
@@ -37,6 +33,10 @@ main(int argc, char *argv[]) {
     if (pid == 0) {
         struct sigaction a = {hand10, 1<<2};
         sigaction(10, &a, null);
+        struct sigaction b = {hand2, 0};
+        sigaction(2, &b, null);
+        struct sigaction c = {hand3, 0};
+        sigaction(3, &c, null);
         while (1) {}
         exit();
     }
