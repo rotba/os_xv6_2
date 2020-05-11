@@ -109,7 +109,6 @@ allocproc(void) {
     }
     p->pending_signals = 0;
     p->signal_mask = 0;
-    p->backup = null;
 
     p->pid = allocpid();
 
@@ -127,7 +126,8 @@ allocproc(void) {
     // Leave room for trap frame.
     sp -= sizeof *p->tf;
     p->tf = (struct trapframe *) sp;
-
+    cprintf("tf: %x\n",p->tf);
+    cprintf("backup: is %x\n",p->backup);
 
     // Set up new context to start executing at forkret,
     // which returns to trapret.
@@ -161,6 +161,7 @@ userinit(void) {
     inituvm(p->pgdir, _binary_initcode_start, (int) _binary_initcode_size);
     p->sz = PGSIZE;
     memset(p->tf, 0, sizeof(*p->tf));
+    memset(p->backup, 0, sizeof(*p->tf));
     p->tf->cs = (SEG_UCODE << 3) | DPL_USER;
     p->tf->ds = (SEG_UDATA << 3) | DPL_USER;
     p->tf->es = p->tf->ds;
@@ -708,27 +709,40 @@ signalsHandler(struct trapframe *parameter) {
 
         if (is_pending_and_not_ignored) {
             myproc()->pending_signals &= ~(1 << i);
-            int *func =(int*) ((struct sigaction*)(myproc()->signal_handlers[i]))->sa_handler;
-            memmove(myproc()->backup, myproc()->tf, sizeof(struct  trapframe));
+            uint func =(uint) ((struct sigaction*)(myproc()->signal_handlers[i]))->sa_handler;
+            cprintf("tf: %x\n",myproc()->tf);
+            cprintf("backup: is %x\n",myproc()->backup);
+            cprintf("tf->eip is %x\n",myproc()->tf->eip);
+            cprintf("backup->eip is %x\n",myproc()->backup->eip);
+//            *(myproc()->backup) =  *(myproc()->tf);
+
+            memmove(
+                    myproc()->backup,
+                    myproc()->tf,
+                    sizeof(struct trapframe)
+            );
+            cprintf("tf->eip is %x\n",myproc()->tf->eip);
+            cprintf("backup->eip is %x\n",myproc()->backup->eip);
+
             myproc()->signal_mask_backup = myproc()->signal_mask;
             if (is_sigact(myproc()->signal_handlers[i])) {
                 myproc()->signal_mask = ((struct sigaction *) myproc()->signal_handlers[i])->sigmask;
             }
             uint code_length = (uint) call_sigret_end - (uint) call_sigret;
             myproc()->tf->esp -= code_length + (code_length % 8);
-            int *call_sigret_add = (int *) myproc()->tf->esp;
+            uint call_sigret_add = (uint) myproc()->tf->esp;
 
             memmove(
-                    call_sigret_add,
+                    (void*)call_sigret_add,
                     call_sigret,
                     code_length
             );
-            cprintf("%x, %x, %d, %p\n", *((int*)call_sigret), *((int*)call_sigret_add), code_length, call_sigret);
+//            cprintf("%x, %x, %d, %p\n", *((int*)call_sigret), *((int*)call_sigret_add), code_length, call_sigret);
             myproc()->tf->esp -= 4;
             *((int *) (myproc()->tf->esp)) = i;
+            cprintf("esp: %p\n" , myproc()->tf->esp);
             myproc()->tf->esp -= 4;
-            *((int **) (myproc()->tf->esp)) = call_sigret_add;
-            myproc()->tf->esp -= 4;
+            *((uint *) (myproc()->tf->esp)) = call_sigret_add;
             myproc()->tf->eip = (uint) func;
 //            release(&ptable.lock);
 //            cprintf("!!!!!!!!!!!!!!!!, %p, %d\n", func, i);
@@ -742,11 +756,17 @@ signalsHandler(struct trapframe *parameter) {
 
 void
 sigret() {
-    cprintf("Backingup\n");
+    cprintf("before restorage eip is %p\n",myproc()->tf->eip);
+    cprintf("before restorage backup eip is %p\n",myproc()->backup->eip);
     acquire(&ptable.lock);
-    memmove(myproc()->tf, myproc()->backup, sizeof(struct trapframe));
+//    *(myproc()->tf) =  *(myproc()->backup);
+    memmove(
+            myproc()->tf,
+            myproc()->backup,
+            sizeof(struct trapframe)
+    );
     myproc()->signal_mask = myproc()->signal_mask_backup;
-
+    cprintf("after restorage eip is %p\n",myproc()->tf->eip);
     release(&ptable.lock);
     return;
 }
