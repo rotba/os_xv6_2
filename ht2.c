@@ -8,6 +8,7 @@
 
 void
 hand(int a) {
+    printf(0, "foo\n");
     return;
 }
 
@@ -24,6 +25,7 @@ main(int argc, char *argv[]) {
     printf(0, "started from the top\n");
     struct sigaction a = {hand, 0};
     sigaction(10, &a, null);
+    printf(0, "%p\n", hand);
     int mypid =getpid();
     while (1) {
         printf(0, "im alive\n");

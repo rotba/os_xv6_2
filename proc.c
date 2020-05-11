@@ -119,15 +119,16 @@ allocproc(void) {
     }
     sp = p->kstack + KSTACKSIZE;
 
+
+
     // Leave room for backup trap frame.
     sp -= sizeof *p->backup;
     p->backup = (struct trapframe *) sp;
-
     // Leave room for trap frame.
     sp -= sizeof *p->tf;
     p->tf = (struct trapframe *) sp;
-    cprintf("tf: %x\n",p->tf);
-    cprintf("backup: is %x\n",p->backup);
+//    cprintf("tf: %x\n",p->tf);
+//    cprintf("backup: is %x\n",p->backup);
 
     // Set up new context to start executing at forkret,
     // which returns to trapret.
@@ -138,9 +139,6 @@ allocproc(void) {
     p->context = (struct context *) sp;
     memset(p->context, 0, sizeof *p->context);
     p->context->eip = (uint) forkret;
-
-
-
 
     return p;
 }
@@ -624,13 +622,16 @@ is_sigact(void *a) {
 void
 signalsHandler(struct trapframe *parameter) {
     if ((parameter->cs & 3) != DPL_USER) return;
+//    cprintf("tf: %x\n",myproc()->tf);
+//    cprintf("backup: is %x\n",((int)(myproc()->backup)));
+//    cprintf("parameter: is %x\n",parameter);
     int is_stopped = 0;
     do {
 
         int is_killed = 0;
         int is_cont = 0;
 
-        acquire(&ptable.lock);
+//        acquire(&ptable.lock);
 
 
         for (int i = 0; i < 32; i++) {
@@ -682,7 +683,7 @@ signalsHandler(struct trapframe *parameter) {
             }
         }
 
-        release(&ptable.lock);
+//        release(&ptable.lock);
 
 
         if (is_killed) {
@@ -702,27 +703,25 @@ signalsHandler(struct trapframe *parameter) {
 
     //backup trapfram
 //    acquire(&ptable.lock);
+//    acquire(&ptable.lock);
     for (int i = 0; i < 32; i++) {
+
         int is_pending_and_not_ignored = (myproc()->pending_signals & 1 << i) != 0 &&
                                          (myproc()->signal_mask & 1 << i) == 0;
+
 
 
         if (is_pending_and_not_ignored) {
             myproc()->pending_signals &= ~(1 << i);
             uint func =(uint) ((struct sigaction*)(myproc()->signal_handlers[i]))->sa_handler;
-            cprintf("tf: %x\n",myproc()->tf);
-            cprintf("backup: is %x\n",myproc()->backup);
-            cprintf("tf->eip is %x\n",myproc()->tf->eip);
-            cprintf("backup->eip is %x\n",myproc()->backup->eip);
-//            *(myproc()->backup) =  *(myproc()->tf);
+            *(myproc()->backup) =  *(myproc()->tf);
 
-            memmove(
-                    myproc()->backup,
-                    myproc()->tf,
-                    sizeof(struct trapframe)
-            );
-            cprintf("tf->eip is %x\n",myproc()->tf->eip);
-            cprintf("backup->eip is %x\n",myproc()->backup->eip);
+
+//            memmove(
+//                    myproc()->backup,
+//                    myproc()->tf,
+//                    sizeof(struct trapframe)
+//            );
 
             myproc()->signal_mask_backup = myproc()->signal_mask;
             if (is_sigact(myproc()->signal_handlers[i])) {
@@ -740,12 +739,11 @@ signalsHandler(struct trapframe *parameter) {
 //            cprintf("%x, %x, %d, %p\n", *((int*)call_sigret), *((int*)call_sigret_add), code_length, call_sigret);
             myproc()->tf->esp -= 4;
             *((int *) (myproc()->tf->esp)) = i;
-            cprintf("esp: %p\n" , myproc()->tf->esp);
+//            cprintf("esp: %p\n" , myproc()->tf->esp);
             myproc()->tf->esp -= 4;
             *((uint *) (myproc()->tf->esp)) = call_sigret_add;
             myproc()->tf->eip = (uint) func;
 //            release(&ptable.lock);
-//            cprintf("!!!!!!!!!!!!!!!!, %p, %d\n", func, i);
             return;
         }
     }
@@ -756,15 +754,15 @@ signalsHandler(struct trapframe *parameter) {
 
 void
 sigret() {
-    cprintf("before restorage eip is %p\n",myproc()->tf->eip);
-    cprintf("before restorage backup eip is %p\n",myproc()->backup->eip);
+//    cprintf("before restorage eip is %p\n",myproc()->tf->eip);
+//    cprintf("before restorage backup eip is %p\n",myproc()->backup->eip);
     acquire(&ptable.lock);
-//    *(myproc()->tf) =  *(myproc()->backup);
-    memmove(
-            myproc()->tf,
-            myproc()->backup,
-            sizeof(struct trapframe)
-    );
+    *(myproc()->tf) =  *(myproc()->backup);
+//    memmove(
+//            myproc()->tf,
+//            myproc()->backup,
+//            sizeof(struct trapframe)
+//    );
     myproc()->signal_mask = myproc()->signal_mask_backup;
     cprintf("after restorage eip is %p\n",myproc()->tf->eip);
     release(&ptable.lock);
