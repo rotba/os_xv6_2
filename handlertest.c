@@ -18,7 +18,6 @@ main(int argc, char *argv[]) {
 
     struct sigaction a = {hand, 0};
     sigaction(10, &a, null);
-
     int pid = fork();
     if (pid == 0) {
 
