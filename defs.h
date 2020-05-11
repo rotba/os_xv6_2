@@ -192,7 +192,7 @@ void yield(void);
 
 uint sigprocmask(uint);
 
-void sigret_impl();
+void sigret();
 
 int sigaction(int, const struct sigaction *, struct sigaction *);
 

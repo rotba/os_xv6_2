@@ -118,6 +118,6 @@ sys_sigaction(void) {
 
 int
 sys_sigret(void) {
-    sigret_impl();
+    sigret();
     return 0;
 }

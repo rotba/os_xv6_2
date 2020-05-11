@@ -708,27 +708,30 @@ signalsHandler(struct trapframe *parameter) {
 
         if (is_pending_and_not_ignored) {
             myproc()->pending_signals &= ~(1 << i);
-            int *func = myproc()->signal_handlers[i];
-            *(myproc()->backup) =  *(myproc()->tf);
+            int *func =(int*) ((struct sigaction*)(myproc()->signal_handlers[i]))->sa_handler;
+            memmove(myproc()->backup, myproc()->tf, sizeof(struct  trapframe));
             myproc()->signal_mask_backup = myproc()->signal_mask;
             if (is_sigact(myproc()->signal_handlers[i])) {
                 myproc()->signal_mask = ((struct sigaction *) myproc()->signal_handlers[i])->sigmask;
             }
-            int code_length = (int) call_sigret_end - (int) call_sigret;
+            uint code_length = (uint) call_sigret_end - (uint) call_sigret;
             myproc()->tf->esp -= code_length + (code_length % 8);
             int *call_sigret_add = (int *) myproc()->tf->esp;
+
             memmove(
-                    (int *) myproc()->tf->esp,
+                    call_sigret_add,
                     call_sigret,
                     code_length
             );
+            cprintf("%x, %x, %d, %p\n", *((int*)call_sigret), *((int*)call_sigret_add), code_length, call_sigret);
             myproc()->tf->esp -= 4;
-            *((int *) myproc()->tf->esp) = i;
-            *((int **) myproc()->tf->esp - 4) = call_sigret_add;
-            myproc()->tf->esp -= 8;
+            *((int *) (myproc()->tf->esp)) = i;
+            myproc()->tf->esp -= 4;
+            *((int **) (myproc()->tf->esp)) = call_sigret_add;
+            myproc()->tf->esp -= 4;
             myproc()->tf->eip = (uint) func;
 //            release(&ptable.lock);
-            cprintf("!!!!!!!!!!!!!!!!, %p\n", func);
+//            cprintf("!!!!!!!!!!!!!!!!, %p, %d\n", func, i);
             return;
         }
     }
@@ -738,10 +741,12 @@ signalsHandler(struct trapframe *parameter) {
 }
 
 void
-sigret_impl() {
+sigret() {
+    cprintf("Backingup\n");
     acquire(&ptable.lock);
     memmove(myproc()->tf, myproc()->backup, sizeof(struct trapframe));
     myproc()->signal_mask = myproc()->signal_mask_backup;
+
     release(&ptable.lock);
     return;
 }
