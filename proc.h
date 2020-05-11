@@ -54,7 +54,7 @@ struct proc {
     uint pending_signals;
     uint signal_mask;
     void* signal_handlers[32];
-    struct trapframe * backup;
+    struct trapframe *backup;        // Trap frame backup for current syscall
     uint signal_mask_backup;
 };
 

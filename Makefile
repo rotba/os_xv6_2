@@ -182,6 +182,9 @@ UPROGS=\
 	_wc\
 	_zombie\
 	_mask_test\
+	_killtest\
+	_stoptest\
+	_handlertest\
 
 fs.img: mkfs README $(UPROGS)
 	./mkfs fs.img README $(UPROGS)
@@ -255,6 +258,9 @@ EXTRA=\
 	README dot-bochsrc *.pl toc.* runoff runoff1 runoff.list\
 	.gdbinit.tmpl gdbutil\
 	mask_test.c\
+	killtest.c\
+	stoptest.c\
+	handlertest.c\
 
 dist:
 	rm -rf dist
