@@ -120,10 +120,11 @@ allocproc(void) {
     }
     sp = p->kstack + KSTACKSIZE;
 
-    // Leave room for trap frame.
+    // Leave room for backup trap frame.
     sp -= sizeof *p->backup;
     p->backup = (struct trapframe *) sp;
 
+    // Leave room for trap frame.
     sp -= sizeof *p->tf;
     p->tf = (struct trapframe *) sp;
 
@@ -708,8 +709,7 @@ signalsHandler(struct trapframe *parameter) {
         if (is_pending_and_not_ignored) {
             myproc()->pending_signals &= ~(1 << i);
             int *func = myproc()->signal_handlers[i];
-            memmove(myproc()->backup, myproc()->tf, sizeof(struct trapframe));
-            cprintf("4\n");
+            *(myproc()->backup) =  *(myproc()->tf);
             myproc()->signal_mask_backup = myproc()->signal_mask;
             if (is_sigact(myproc()->signal_handlers[i])) {
                 myproc()->signal_mask = ((struct sigaction *) myproc()->signal_handlers[i])->sigmask;
@@ -728,6 +728,7 @@ signalsHandler(struct trapframe *parameter) {
             myproc()->tf->esp -= 8;
             myproc()->tf->eip = (uint) func;
 //            release(&ptable.lock);
+            cprintf("!!!!!!!!!!!!!!!!, %p\n", func);
             return;
         }
     }
