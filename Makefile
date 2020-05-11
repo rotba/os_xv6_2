@@ -186,6 +186,8 @@ UPROGS=\
 	_stoptest\
 	_handlertest\
 	_ht2\
+	_ht3\
+	_ht4\
 
 fs.img: mkfs README $(UPROGS)
 	./mkfs fs.img README $(UPROGS)
@@ -263,6 +265,8 @@ EXTRA=\
 	stoptest.c\
 	handlertest.c\
 	ht2.c\
+	ht3.c\
+	ht4.c\
 
 dist:
 	rm -rf dist

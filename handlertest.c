@@ -16,11 +16,11 @@ hand(int a) {
 int
 main(int argc, char *argv[]) {
 
-    struct sigaction a = {hand, 0};
-    sigaction(10, &a, null);
+
     int pid = fork();
     if (pid == 0) {
-
+        struct sigaction a = {hand, 0};
+        sigaction(10, &a, null);
 
         while (1) {
             printf(0, "still alive\n");
