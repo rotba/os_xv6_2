@@ -121,14 +121,14 @@ allocproc(void) {
 
 
 
-    // Leave room for backup trap frame.
-    sp -= sizeof *p->backup;
-    p->backup = (struct trapframe *) sp;
-    // Leave room for trap frame.
+//     Leave room for backup trap frame.
+//    sp -= sizeof *p->backup;
+//    p->backup = (struct trapframe *) sp;
+//    // Leave room for trap frame.
     sp -= sizeof *p->tf;
     p->tf = (struct trapframe *) sp;
-//    cprintf("tf: %x\n",p->tf);
-//    cprintf("backup: is %x\n",p->backup);
+    cprintf("tf: %x\n",p->tf);
+    cprintf("backup: is %x\n",p->backup);
 
     // Set up new context to start executing at forkret,
     // which returns to trapret.
@@ -159,7 +159,7 @@ userinit(void) {
     inituvm(p->pgdir, _binary_initcode_start, (int) _binary_initcode_size);
     p->sz = PGSIZE;
     memset(p->tf, 0, sizeof(*p->tf));
-    memset(p->backup, 0, sizeof(*p->tf));
+//    memset(p->backup, 0, sizeof(*p->tf));
     p->tf->cs = (SEG_UCODE << 3) | DPL_USER;
     p->tf->ds = (SEG_UDATA << 3) | DPL_USER;
     p->tf->es = p->tf->ds;
@@ -714,7 +714,7 @@ signalsHandler(struct trapframe *parameter) {
         if (is_pending_and_not_ignored) {
             myproc()->pending_signals &= ~(1 << i);
             uint func =(uint) ((struct sigaction*)(myproc()->signal_handlers[i]))->sa_handler;
-            *(myproc()->backup) =  *(myproc()->tf);
+            myproc()->backup =  *(myproc()->tf);
 
 
 //            memmove(
@@ -743,6 +743,7 @@ signalsHandler(struct trapframe *parameter) {
             myproc()->tf->esp -= 4;
             *((uint *) (myproc()->tf->esp)) = call_sigret_add;
             myproc()->tf->eip = (uint) func;
+            cprintf("esp: %p\n", myproc()->tf->esp);
 //            release(&ptable.lock);
             return;
         }
@@ -757,7 +758,7 @@ sigret() {
 //    cprintf("before restorage eip is %p\n",myproc()->tf->eip);
 //    cprintf("before restorage backup eip is %p\n",myproc()->backup->eip);
     acquire(&ptable.lock);
-    *(myproc()->tf) =  *(myproc()->backup);
+    *(myproc()->tf) =  myproc()->backup;
 //    memmove(
 //            myproc()->tf,
 //            myproc()->backup,
