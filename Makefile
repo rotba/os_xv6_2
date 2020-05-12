@@ -189,6 +189,7 @@ UPROGS=\
 	_ht3\
 	_ht4\
 	_ht5\
+	_ct\
 
 fs.img: mkfs README $(UPROGS)
 	./mkfs fs.img README $(UPROGS)
@@ -269,6 +270,7 @@ EXTRA=\
 	ht3.c\
 	ht4.c\
 	ht5.c\
+	ct.c\
 
 dist:
 	rm -rf dist
