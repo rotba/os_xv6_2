@@ -544,10 +544,6 @@ wakeup1(void *chan) {
     struct proc *p;
 //    cprintf("chan:%d\n", (int)chan);
     for (p = ptable.proc; p < &ptable.proc[NPROC]; p++) {
-        while (p->state == -SLEEPING) {
-            cprintf("proc %s is in state %d, chan: %d\n",
-                    p->name, p->state, p->chan);
-        }
         if (p->chan == chan) {
             if (debug) {
                 cprintf("proc %s is in state %d\n", p->name, p->state);
