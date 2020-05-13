@@ -172,6 +172,7 @@ userinit(void) {
     safestrcpy(p->name, "initcode", sizeof(p->name));
     p->cwd = namei("/");
 
+
     // this assignment to p->state lets other cores
     // run this process. the acquire forces the above
     // writes to be visible, and the lock is also needed
@@ -301,7 +302,7 @@ exit(void) {
     }
 
     // Jump into the scheduler, never to return.
-    cas(&curproc->state, -ZOMBIE, ZOMBIE);
+
     sched();
     panic("zombie exit");
 }
@@ -396,6 +397,7 @@ scheduler(void) {
             switchkvm();
             cas(&p->state, -RUNNABLE, RUNNABLE);
             (cas(&p->state, -SLEEPING, SLEEPING));
+            cas(&p->state, -ZOMBIE, ZOMBIE);
             // Process is done running for now.
             // It should have changed its p->state before coming back.
             c->proc = 0;
