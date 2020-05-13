@@ -7,7 +7,7 @@
 #include "proc.h"
 #include "spinlock.h"
 
-int debug = 0;
+int debug = 1;
 
 struct {
 //    struct spinlock lock;
@@ -153,6 +153,8 @@ userinit(void) {
     extern char _binary_initcode_start[], _binary_initcode_size[];
 
     p = allocproc();
+    if(debug)
+        cprintf("p->state: %d\n", p->state);
 
     initproc = p;
     if ((p->pgdir = setupkvm()) == 0)
@@ -176,11 +178,9 @@ userinit(void) {
     // run this process. the acquire forces the above
     // writes to be visible, and the lock is also needed
     // because the assignment might not be atomic.
-    acquire(&ptable.lock);
 
     p->state = RUNNABLE;
 
-    release(&ptable.lock);
 }
 
 // Grow current process's memory by n bytes.
