@@ -10,7 +10,7 @@
 int debug = 0;
 
 struct {
-    struct spinlock lock;
+//    struct spinlock lock;
     struct proc proc[NPROC];
 } ptable;
 
@@ -32,7 +32,7 @@ static void wakeup1(void *chan);
 
 void
 pinit(void) {
-    initlock(&ptable.lock, "ptable");
+//    initlock(&ptable.lock, "ptable");
 }
 
 // Must be called with interrupts disabled
@@ -95,15 +95,17 @@ allocproc(void) {
     struct proc *p;
     char *sp;
 
-
+    pushcli();
     for (p = ptable.proc; p < &ptable.proc[NPROC]; p++)
         if (cas((volatile void *)&p->state, UNUSED, EMBRYO)) {
             goto found;
         }
 
+    popcli();
     return 0;
 
     found:
+    popcli();
     for (int i = 0; i < 32; ++i) {
 
         p->signal_handlers[i] = SIG_DFL;
@@ -620,7 +622,7 @@ is_sigact(void *a) {
 
 void
 signalsHandler(struct trapframe *parameter) {
-    if ((parameter->cs & 3) != DPL_USER) return;
+    if ((parameter->cs & 3) != DPL_USER || myproc() == 0) return;
 //    cprintf("tf: %x\n",myproc()->tf);
 //    cprintf("backup: is %x\n",((int)(myproc()->backup)));
 //    cprintf("parameter: is %x\n",parameter);
