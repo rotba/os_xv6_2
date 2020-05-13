@@ -158,10 +158,13 @@ iderw(struct buf *b)
   if(idequeue == b)
     idestart(b);
 
+  cprintf("did we fucked the sleep?\n");
   // Wait for request to finish.
   while((b->flags & (B_VALID|B_DIRTY)) != B_VALID){
-    sleep(b, &idelock);
+      cprintf("did we fucked the sleep?\n");
+      sleep(b, &idelock);
   }
+    cprintf("did we fucked the sleep!\n");
 
 
   release(&idelock);

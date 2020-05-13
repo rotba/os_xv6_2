@@ -81,7 +81,7 @@ allocpid(void) {
     do {
         old = nextpid;
         pid = nextpid + 1;
-    } while (!cas((&nextpid), old, pid));
+    } while (!cas((&nextpid), old, nextpid + 1));
     return pid;
 }
 
@@ -367,7 +367,7 @@ scheduler(void) {
 
     for (;;) {
         // Enable interrupts on this processor.
-        sti();
+//        sti();
 
         // Loop over process table looking for process to run.
         pushcli();
@@ -386,10 +386,13 @@ scheduler(void) {
             if (!cas(&p->state, -RUNNING, RUNNING)) {
                 panic("scheduler:: assert p->state == -RUNNING violated\n");
             }
+
             swtch(&(c->scheduler), p->context);
             switchkvm();
             cas(&p->state, -RUNNABLE, RUNNABLE);
-            cas(&p->state, -SLEEPING, SLEEPING);
+            if(cas(&p->state, -SLEEPING, SLEEPING)){
+                cprintf("proc %s is -SLEEPING, p->state:%d, SLEEPING: %d\n", p->name, p->state, SLEEPING);
+            }
             // Process is done running for now.
             // It should have changed its p->state before coming back.
             c->proc = 0;
@@ -422,6 +425,9 @@ sched(void) {
     if (readeflags() & FL_IF)
         panic("sched interruptible");
     intena = mycpu()->intena;
+    if (debug){
+        cprintf("scheding\n");
+    }
     swtch(&p->context, mycpu()->scheduler);
     mycpu()->intena = intena;
 }
@@ -442,9 +448,13 @@ yield(void) {
 void
 forkret(void) {
     static int first = 1;
+
+    popcli();
+    if (debug){
+        cprintf("forkretiing\n");
+    }
     // Still holding ptable.lock from scheduler.
 //    release(&ptable.lock);
-    popcli();
 
     if (first) {
         // Some initialization functions must be run in the context
@@ -452,10 +462,14 @@ forkret(void) {
         // be run from main().
         first = 0;
         iinit(ROOTDEV);
+        if (debug){
+            cprintf("forkretiing2\n");
+        }
         initlog(ROOTDEV);
     }
 
     // Return to "caller", actually trapret (see allocproc).
+
 }
 
 // Atomically release lock and sleep on chan.
@@ -487,7 +501,9 @@ sleep(void *chan, struct spinlock *lk) {
     // Go to sleep.
     p->chan = chan;
     p->state = -SLEEPING;
-
+    if (debug){
+        cprintf("asdasd\n");
+    }
     sched();
 
     // Tidy up.
@@ -510,9 +526,14 @@ sleep(void *chan, struct spinlock *lk) {
 static void
 wakeup1(void *chan) {
     struct proc *p;
-
+    if (debug){
+        cprintf("proc wakeuping\n");
+    }
     for (p = ptable.proc; p < &ptable.proc[NPROC]; p++)
         if (p->chan == chan){
+            if (debug){
+                cprintf("proc %s is in state %d\n", p->name, p->state);
+            }
             cas(&p->state, SLEEPING, RUNNABLE);
         }
 }
@@ -645,6 +666,9 @@ is_sigact(void *a) {
 
 void
 signalsHandler(struct trapframe *parameter) {
+    if (debug){
+        cprintf("signalsHandling\n");
+    }
     if ((parameter->cs & 3) != DPL_USER || myproc() == 0) return;
 //    cprintf("tf: %x\n",myproc()->tf);
 //    cprintf("backup: is %x\n",((int)(myproc()->backup)));
