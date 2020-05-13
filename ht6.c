@@ -14,24 +14,25 @@ hand2(int a) {
 
 //volatile int handled_3 = 0;
 void
-just_do_it(int a) {
+just_do_it() {
     sleep(1000);
     exit();
-    return;
 }
 
 
 int
 main(int argc, char *argv[]) {
-    if(fork()==0){
-        just_do_it();
+    int harbe =2;
+    int tmp_harbe = harbe;
+    while (tmp_harbe-->0){
+        if(fork()==0){just_do_it();}
+        wait();
     }
-    if(fork()==0){
-        just_do_it();
-    }
-    if(fork()==0){
-        just_do_it();
-    }
+//    while (harbe-->0){
+//        wait();
+//        printf(0,"woke up %d\n", harbe);
+//    }
+    exit();
 }
 
 

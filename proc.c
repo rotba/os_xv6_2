@@ -549,7 +549,6 @@ wakeup1(void *chan) {
                 cprintf("proc %s is in state %d\n", p->name, p->state);
             }
             cas(&p->state, SLEEPING, RUNNABLE);
-            cas(&p->state, -SLEEPING, RUNNABLE);
         }
     }
 }
