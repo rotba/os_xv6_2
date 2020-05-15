@@ -550,7 +550,10 @@ wakeup1(void *chan) {
             if (debug) {
                 cprintf("proc %s is in state %d\n", p->name, p->state);
             }
+            while (cas(&p->state, -SLEEPING, -SLEEPING)) {}
+
             cas(&p->state, SLEEPING, RUNNABLE);
+
         }
     }
 }
