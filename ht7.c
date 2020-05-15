@@ -27,11 +27,11 @@ main(int argc, char *argv[]) {
     while (tmp_harbe-->0){
         int pid;
         if((pid = fork())==0){just_do_it();}
-//        sleep(0);
-//        sleep(0);
+        sleep(0);
+        sleep(0);
         kill(pid , SIGKILL);
         wait();
-        printf(0,"woke up %d\n", harbe);
+        printf(0,"woke up %d\n", tmp_harbe);
     }
 //    while (harbe-->0){
 //        wait();

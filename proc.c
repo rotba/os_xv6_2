@@ -566,6 +566,52 @@ wakeup(void *chan) {
     popcli();
 }
 
+int
+is_sigact(void *a) {
+    if ((int) a == 0 || (int) a == 1 || (int) a == 9 || (int) a == 17 || (int) a == 19) {
+        return 0;
+    } else {
+        return 1;
+    }
+}
+
+// Kill the process with the given pid.
+// Process won't exit until it returns
+// to user space (see trap in trap.c).
+int//
+is_kill(int signum, struct proc *p) {
+    int i = signum;
+    int ans = 0;
+    if (i == SIGKILL) {
+        cprintf("bug1\n");
+        ans = 1;
+    } else if ((p->signal_handlers[i] == (void *) SIGKILL ||
+                p->signal_handlers[i] == (void *) SIG_DFL) && (i != SIGCONT && i != SIGSTOP)) {
+        cprintf("bug2\n");
+        ans = 1;
+    } else if (is_sigact(p->signal_handlers[i]) &&
+               (((struct sigaction *) (p->signal_handlers[i]))->sa_handler == (void *) SIGKILL ||
+                (((struct sigaction *) (p->signal_handlers[i]))->sa_handler == (void *) SIG_DFL))) {
+        cprintf("bug3\n");
+        if (((struct sigaction *) (p->signal_handlers[i]))->sa_handler == (void *) SIGKILL)cprintf("bug3.1\n");
+        if ((((struct sigaction *) (p->signal_handlers[i]))->sa_handler == (void *) SIG_DFL))cprintf("bug3.2\n");
+        cprintf(
+                "p:%p, pid:%d, i:%d, p->signal_handlers[i]: %p\n", p,p->pid, i,p->signal_handlers[i]
+        );
+        cprintf("%p\n", ((struct sigaction *) (p->signal_handlers[i]))->sa_handler);
+        ans = 1;
+    }
+    return ans;
+//    pushcli();
+//    myproc()->killed = 1;
+//    // Wake process from sleep if necessary.
+////    while (cas(&myproc()->state, -SLEEPING, -SLEEPING)){}
+//    cas(&myproc()->state, SLEEPING, RUNNABLE);
+////    if (myproc()->state == SLEEPING)
+////        myproc()->state = RUNNABLE;
+//    popcli();
+}
+
 // Kill the process with the given pid.
 // Process won't exit until it returns
 // to user space (see trap in trap.c).
@@ -577,27 +623,23 @@ kill(int pid, int signum) {
     struct proc *p;
     for (p = ptable.proc; p < &ptable.proc[NPROC]; p++) {
         if (p->pid == pid) {
-            p->pending_signals |= bit;
+//            pushcli();
+            if (is_kill(signum, p)) {
+                cprintf("signum:%d, pid:%d\n", signum, p->pid);
+                pushcli();
+                p->killed = 1;
+                cas(&p->state, SLEEPING, RUNNABLE);
+                popcli();
+            } else {
+                p->pending_signals |= bit;
+            }
+//            popcli();
             return 0;
         }
     }
     return -1;
 }
 
-// Kill the process with the given pid.
-// Process won't exit until it returns
-// to user space (see trap in trap.c).
-void//
-kill_handler() {
-    pushcli();
-    myproc()->killed = 1;
-    // Wake process from sleep if necessary.
-//    while (cas(&myproc()->state, -SLEEPING, -SLEEPING)){}
-    cas(&myproc()->state, SLEEPING, RUNNABLE);
-//    if (myproc()->state == SLEEPING)
-//        myproc()->state = RUNNABLE;
-    popcli();
-}
 
 void stop_handler() {
     int bit = 1 << SIGCONT;
@@ -668,19 +710,16 @@ sigaction(int signum, const struct sigaction *act, struct sigaction *oldact) {
     }
 
     myproc()->signal_handlers[signum] = (void *) act;
+    cprintf("signum: %d\n", signum);
+    cprintf(
+            "myproc():%p, pid:%d, signum:%d, myproc()->signal_handlers[signum]:%p\n", myproc(),myproc()->pid, signum,myproc()->signal_handlers[signum]
+    );
+    cprintf("done it, pid: %d, act->sa_handler:%p\n", myproc()->pid,
+            ((struct sigaction *) (myproc()->signal_handlers[signum]))->sa_handler);
 
 //    release(&ptable.lock);
 
     return 0;
-}
-
-int
-is_sigact(void *a) {
-    if ((int) a == 0 || (int) a == 1 || (int) a == 9 || (int) a == 17 || (int) a == 19) {
-        return 0;
-    } else {
-        return 1;
-    }
 }
 
 
@@ -693,7 +732,7 @@ signalsHandler(struct trapframe *parameter) {
     int is_stopped = 0;
     do {
 
-        int is_killed = 0;
+//        int is_killed = 0;
         int is_cont = 0;
 
 //        acquire(&ptable.lock);
@@ -702,23 +741,25 @@ signalsHandler(struct trapframe *parameter) {
         for (int i = 0; i < 32; i++) {
 
             if (myproc()->pending_signals & (1 << i) &&
-                (!(myproc()->signal_mask & (1 << i)) || i == SIGKILL || i == SIGSTOP || i == SIGCONT)) {
-                if (i == SIGKILL) {
-                    is_killed = 1;
-                    is_stopped = 0;
-                    break;
-                } else if ((myproc()->signal_handlers[i] == (void *) SIGKILL ||
-                            myproc()->signal_handlers[i] == (void *) SIG_DFL) && (i != SIGCONT && i != SIGSTOP)) {
-                    is_killed = 1;
-                    is_stopped = 0;
-                    break;
-                } else if (is_sigact(myproc()->signal_handlers[i]) &&
-                           (((struct sigaction *) (myproc()->signal_handlers[i]))->sa_handler == (void *) SIGKILL ||
-                            (((struct sigaction *) (myproc()->signal_handlers[i]))->sa_handler == (void *) SIG_DFL))) {
-                    is_killed = 1;
-                    is_stopped = 0;
-                    break;
-                }
+                (!(myproc()->signal_mask & (1 << i)) || i == SIGSTOP || i == SIGCONT)) {
+//                (!(myproc()->signal_mask & (1 << i)) || i == SIGKILL || i == SIGSTOP || i == SIGCONT)) {
+//                if (i == SIGKILL) {
+//                    is_killed = 1;
+//                    is_stopped = 0;
+//                    break;
+//                } else
+//                    if ((myproc()->signal_handlers[i] == (void *) SIGKILL ||
+//                            myproc()->signal_handlers[i] == (void *) SIG_DFL) && (i != SIGCONT && i != SIGSTOP)) {
+//                    is_killed = 1;
+//                    is_stopped = 0;
+//                    break;
+//                } else if (is_sigact(myproc()->signal_handlers[i]) &&
+//                           (((struct sigaction *) (myproc()->signal_handlers[i]))->sa_handler == (void *) SIGKILL ||
+//                            (((struct sigaction *) (myproc()->signal_handlers[i]))->sa_handler == (void *) SIG_DFL))) {
+//                    is_killed = 1;
+//                    is_stopped = 0;
+//                    break;
+//                }
 
 
                 if (i == SIGSTOP) {
@@ -751,8 +792,8 @@ signalsHandler(struct trapframe *parameter) {
 //        release(&ptable.lock);
 
 
-        if (is_killed) {
-            kill_handler();
+        if (myproc()->killed) {
+//            kill_handler();
             is_stopped = 0;
             return;
         }

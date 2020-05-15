@@ -17,14 +17,14 @@ int
 main(int argc, char *argv[]) {
 
 
+
     int pid = fork();
     if (pid == 0) {
         struct sigaction a = {hand, 0};
         sigaction(10, &a, null);
-
         while (1) {
-            printf(0, "still alive\n");
-            sleep(100);
+//            printf(0, "still alive\n");
+//            sleep(100);
         }
         exit();
     }
