@@ -76,8 +76,8 @@ myproc(void) {
 
 int
 allocpid(void) {
-    int pid = nextpid;
-    int old = nextpid;
+    int pid;
+    int old;
     do {
         old = nextpid;
         pid = nextpid + 1;
@@ -96,6 +96,7 @@ allocproc(void) {
     char *sp;
 
     pushcli();
+
     for (p = ptable.proc; p < &ptable.proc[NPROC]; p++)
         if (cas((volatile void *) &p->state, UNUSED, EMBRYO)) {
             goto found;
@@ -179,6 +180,7 @@ userinit(void) {
     // because the assignment might not be atomic.
 
     pushcli();
+
     if (!cas(&p->state, EMBRYO, RUNNABLE)) {
         panic("assert p->state == EMBRYO violated\n");
     }
@@ -251,9 +253,11 @@ fork(void) {
 
 
     pushcli();
+
     if (!cas(&np->state, EMBRYO, RUNNABLE)) {
         panic("assert p->state == EMBRYO violated");
     }
+
     popcli();
 
 
@@ -287,6 +291,7 @@ exit(void) {
 
 
     pushcli();
+
     cas(&curproc->state, RUNNING, -ZOMBIE);
 
     // Parent might be sleeping in wait()
@@ -389,12 +394,15 @@ scheduler(void) {
             }
             c->proc = p;
             switchuvm(p);
+
             if (!cas(&p->state, -RUNNING, RUNNING)) {
                 panic("scheduler:: assert p->state == -RUNNING violated\n");
             }
+
             if (debug) {
                 cprintf("%s\n", p->name);
             }
+
             swtch(&(c->scheduler), p->context);
             switchkvm();
             cas(&p->state, -RUNNABLE, RUNNABLE);

@@ -192,6 +192,7 @@ UPROGS=\
 	_ht6\
 	_ht7\
 	_ct\
+	_sanity\
 
 fs.img: mkfs README $(UPROGS)
 	./mkfs fs.img README $(UPROGS)
@@ -275,6 +276,7 @@ EXTRA=\
 	ht6.c\
 	ht7.c\
 	ct.c\
+	sanity.c\
 
 dist:
 	rm -rf dist

@@ -8,7 +8,7 @@
 
 void
 hand(int a) {
-    printf(0, "hooray!!!!\n");
+    printf(1, "hooray!!!!\n");
     return;
 }
 
@@ -23,7 +23,7 @@ main(int argc, char *argv[]) {
         sigaction(10, &a, null);
 
         while (1) {
-            printf(0, "still alive\n");
+            printf(1, "still alive\n");
             sleep(100);
         }
         exit();
@@ -31,10 +31,10 @@ main(int argc, char *argv[]) {
 
 
     sleep(200);
-    printf(0, "sending user handler\n");
+    printf(1, "sending user handler\n");
     kill(pid, 10);
     sleep(300);
-    printf(0, "sending kill\n");
+    printf(1, "sending kill\n");
     kill(pid, SIGKILL);
     wait();
 
