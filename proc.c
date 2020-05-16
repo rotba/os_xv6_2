@@ -334,7 +334,9 @@ wait(void) {
                     p->parent = 0;
                     p->name[0] = 0;
                     p->killed = 0;
-                    cas(&p->state, -UNUSED, UNUSED);
+                    if(!cas(&p->state, -UNUSED, UNUSED)){
+                        panic("assert p->state==UNUSED is violated");
+                    }
                     popcli();
                     return pid;
                 }
@@ -597,6 +599,7 @@ kill_handler() {
 //    if (myproc()->state == SLEEPING)
 //        myproc()->state = RUNNABLE;
     popcli();
+    exit();
 }
 
 void stop_handler() {

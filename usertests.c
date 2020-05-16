@@ -1772,7 +1772,7 @@ main(int argc, char *argv[])
 
   opentest();
   writetest();
-  writetest1();
+//  writetest1();
   createtest();
 
   openiputtest();
@@ -1793,7 +1793,7 @@ main(int argc, char *argv[])
   dirfile();
   iref();
   forktest();
-  bigdir(); // slow
+//  bigdir(); // slow
 
   uio();
 
