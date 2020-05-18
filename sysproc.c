@@ -66,7 +66,7 @@ sys_sleep(void) {
         if (myproc()->killed) {
             release(&tickslock);
             return -1;
-        }else if((myproc()->pending_signals & (1<<SIGKILL))!= 0 ){
+        } else if ((myproc()->pending_signals & (1 << SIGKILL)) != 0) {
             release(&tickslock);
             return 0;
         }
