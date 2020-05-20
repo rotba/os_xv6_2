@@ -184,15 +184,17 @@ UPROGS=\
 	_mask_test\
 	_killtest\
 	_stoptest\
-	_handlertest\
-	_ht2\
-	_ht3\
-	_ht4\
-	_ht5\
-	_ht6\
-	_ht7\
-	_ct\
 	_sanity\
+	_syntst\
+#	_handlertest\
+#	_ht2\
+#	_ht3\
+#	_ht4\
+#	_ht5\
+#	_ht6\
+#	_ht7\
+#	_ct\
+
 
 fs.img: mkfs README $(UPROGS)
 	./mkfs fs.img README $(UPROGS)
@@ -268,15 +270,17 @@ EXTRA=\
 	mask_test.c\
 	killtest.c\
 	stoptest.c\
-	handlertest.c\
-	ht2.c\
-	ht3.c\
-	ht4.c\
-	ht5.c\
-	ht6.c\
-	ht7.c\
-	ct.c\
 	sanity.c\
+	syntst.c\
+#	handlertest.c\
+#	ht2.c\
+#	ht3.c\
+#	ht4.c\
+#	ht5.c\
+#	ht6.c\
+#	ht7.c\
+#	ct.c\
+
 
 dist:
 	rm -rf dist

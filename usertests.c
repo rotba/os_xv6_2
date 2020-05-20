@@ -191,7 +191,6 @@ writetest1(void) {
         exit();
     }
 
-    printf(stdout, "test1\n");
 
     for (i = 0; i < MAXFILE; i++) {
         ((int *) buf)[0] = i;
@@ -201,10 +200,8 @@ writetest1(void) {
         }
     }
 
-    printf(stdout, "test2\n");
     close(fd);
 
-    printf(stdout, "test3\n");
 
     fd = open("big", O_RDONLY);
     if (fd < 0) {
@@ -212,7 +209,6 @@ writetest1(void) {
         exit();
     }
 
-    printf(stdout, "test 4\n");
 
     n = 0;
     for (;;) {
@@ -234,7 +230,6 @@ writetest1(void) {
         }
         n++;
     }
-    printf(stdout, "test 5\n");
     close(fd);
     if (unlink("big") < 0) {
         printf(stdout, "unlink big failed\n");
@@ -1742,7 +1737,7 @@ main(int argc, char *argv[]) {
 
     opentest();
     writetest();
-//    writetest1();
+    writetest1();
     createtest();
 
     openiputtest();
@@ -1763,7 +1758,7 @@ main(int argc, char *argv[]) {
     dirfile();
     iref();
     forktest();
-//    bigdir(); // slow
+    bigdir(); // slow
 
     uio();
 

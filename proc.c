@@ -292,7 +292,7 @@ exit(void) {
 
     pushcli();
 
-    cas(&curproc->state, RUNNING, -ZOMBIE);
+    cas(&curproc->state, RUNNING, NEG_ZOMBIE);
 
     // Parent might be sleeping in wait()
     wakeup1(curproc->parent);
@@ -301,7 +301,7 @@ exit(void) {
     for (p = ptable.proc; p < &ptable.proc[NPROC]; p++) {
         if (p->parent == curproc) {
             p->parent = initproc;
-            if (p->state == ZOMBIE || p->state == -ZOMBIE)
+            if (p->state == ZOMBIE || p->state == NEG_ZOMBIE)
                 wakeup1(initproc);
         }
     }
@@ -328,8 +328,8 @@ wait(void) {
             if (p->parent != curproc)
                 continue;
             havekids = 1;
-            while (cas(&p->state, -ZOMBIE, -ZOMBIE) || cas(&p->state, ZOMBIE, ZOMBIE)) {
-                if (cas(&p->state, ZOMBIE, -UNUSED)) {
+            while (cas(&p->state, NEG_ZOMBIE, NEG_ZOMBIE) || cas(&p->state, ZOMBIE, ZOMBIE)) {
+                if (cas(&p->state, ZOMBIE, NEG_UNUSED)) {
                     // Found one.
                     pid = p->pid;
                     kfree(p->kstack);
@@ -339,7 +339,7 @@ wait(void) {
                     p->parent = 0;
                     p->name[0] = 0;
                     p->killed = 0;
-                    if(!cas(&p->state, -UNUSED, UNUSED)){
+                    if(!cas(&p->state, NEG_UNUSED, UNUSED)){
                         panic("assert p->state==UNUSED is violated");
                     }
                     popcli();
@@ -384,7 +384,7 @@ scheduler(void) {
             if (p->state != RUNNABLE) {
                 continue;
             }
-            if (!cas(&p->state, RUNNABLE, -RUNNING))
+            if (!cas(&p->state, RUNNABLE, NEG_RUNNING))
                 continue;
             // Switch to chosen process.  It is the process's job
             // to release ptable.lock and then reacquire it
@@ -395,8 +395,8 @@ scheduler(void) {
             c->proc = p;
             switchuvm(p);
 
-            if (!cas(&p->state, -RUNNING, RUNNING)) {
-                panic("scheduler:: assert p->state == -RUNNING violated\n");
+            if (!cas(&p->state, NEG_RUNNING, RUNNING)) {
+                panic("scheduler:: assert p->state == NEG_RUNNING violated\n");
             }
 
             if (debug) {
@@ -405,9 +405,9 @@ scheduler(void) {
 
             swtch(&(c->scheduler), p->context);
             switchkvm();
-            cas(&p->state, -RUNNABLE, RUNNABLE);
-            (cas(&p->state, -SLEEPING, SLEEPING));
-            cas(&p->state, -ZOMBIE, ZOMBIE);
+            cas(&p->state, NEG_RUNNABLE, RUNNABLE);
+            (cas(&p->state, NEG_SLEEPING, SLEEPING));
+            cas(&p->state, NEG_ZOMBIE, ZOMBIE);
             // Process is done running for now.
             // It should have changed its p->state before coming back.
             c->proc = 0;
@@ -435,8 +435,8 @@ sched(void) {
         panic("sched locks");
     if (p->state == RUNNING)
         panic("sched running");
-    if (p->state == -RUNNING)
-        panic("sched -running");
+    if (p->state == NEG_RUNNING)
+        panic("sched NEG_running");
     if (readeflags() & FL_IF)
         panic("sched interruptible");
     intena = mycpu()->intena;
@@ -452,7 +452,7 @@ void
 yield(void) {
 //    acquire(&ptable.lock);  //DOC: yieldlock
     pushcli();
-    myproc()->state = -RUNNABLE;//-run
+    myproc()->state = NEG_RUNNABLE;//-run
     sched();
     popcli();
 //    release(&ptable.lock);
@@ -525,7 +525,7 @@ sleep(void *chan, struct spinlock *lk) {
     }
     // Go to sleep.
     p->chan = chan;
-    p->state = -SLEEPING;
+    p->state = NEG_SLEEPING;
     if (debug) {
         cprintf("about to sched sleeping on %d\n", (int) p->chan);
     }
@@ -560,7 +560,7 @@ wakeup1(void *chan) {
             if (debug) {
                 cprintf("proc %s is in state %d\n", p->name, p->state);
             }
-            while (cas(&p->state, -SLEEPING, -SLEEPING)) {}
+            while (cas(&p->state, NEG_SLEEPING, NEG_SLEEPING)) {}
 
             cas(&p->state, SLEEPING, RUNNABLE);
 
@@ -602,7 +602,7 @@ kill_handler() {
     pushcli();
     myproc()->killed = 1;
     // Wake process from sleep if necessary.
-//    while (cas(&myproc()->state, -SLEEPING, -SLEEPING)){}
+//    while (cas(&myproc()->state, NEG_SLEEPING, NEG_SLEEPING)){}
     cas(&myproc()->state, SLEEPING, RUNNABLE);
 //    if (myproc()->state == SLEEPING)
 //        myproc()->state = RUNNABLE;
