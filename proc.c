@@ -292,10 +292,12 @@ exit(void) {
 
     pushcli();
 
-    cas(&curproc->state, RUNNING, NEG_ZOMBIE);
+
 
     // Parent might be sleeping in wait()
     wakeup1(curproc->parent);
+
+    cas(&curproc->state, RUNNING, NEG_ZOMBIE);
 
     // Pass abandoned children to init.
     for (p = ptable.proc; p < &ptable.proc[NPROC]; p++) {
