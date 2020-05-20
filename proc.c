@@ -321,6 +321,7 @@ wait(void) {
     struct proc *curproc = myproc();
 
     pushcli();
+    curproc->state = NEG_SLEEPING;
     for (;;) {
         // Scan through table looking for exited children.
         havekids = 0;
@@ -339,9 +340,10 @@ wait(void) {
                     p->parent = 0;
                     p->name[0] = 0;
                     p->killed = 0;
-                    if(!cas(&p->state, NEG_UNUSED, UNUSED)){
+                    if (!cas(&p->state, NEG_UNUSED, UNUSED)) {
                         panic("assert p->state==UNUSED is violated");
                     }
+                    curproc->state = RUNNING;
                     popcli();
                     return pid;
                 }
@@ -350,13 +352,20 @@ wait(void) {
 
         // No point waiting if we don't have any children.
         if (!havekids || curproc->killed) {
+            curproc->state = RUNNING;
             popcli();
             return -1;
         }
 
         // Wait for children to exit.  (See wakeup1 call in proc_exit.)
-        sleep(curproc, null);  //DOC: wait-sleep
+//        sleep(curproc, null);  //DOC: wait-sleep
+
+        curproc->chan = curproc;
+        sched();
+        p->chan = 0;
     }
+    p->chan = 0;
+    popcli();
 }
 
 //PAGEBREAK: 42
