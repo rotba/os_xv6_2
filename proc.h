@@ -69,7 +69,7 @@ struct context {
 };
 
 enum procstate {
-    UNUSED, EMBRYO, SLEEPING, RUNNABLE, RUNNING, ZOMBIE
+    UNUSED, EMBRYO, SLEEPING, RUNNABLE, RUNNING, ZOMBIE, NEG_UNUSED, NEG_SLEEPING, NEG_RUNNABLE, NEG_RUNNING, NEG_ZOMBIE
 };
 
 // Per-process state
@@ -89,7 +89,7 @@ struct proc {
     char name[16];               // Process name (debugging)
     uint pending_signals;
     uint signal_mask;
-    void* signal_handlers[32];
+    void *signal_handlers[32];
     struct trapframe backup;        // Trap frame backup for current syscall
     uint signal_mask_backup;
 
